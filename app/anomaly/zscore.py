@@ -30,6 +30,7 @@ def detect_zscore(
     df: pd.DataFrame,
     dataset_version: str,
     columns: list[str] | None = None,
+    threshold: float | None = None,
 ) -> AnomalySummary:
     """
     Run Z-score anomaly detection on numeric columns.
@@ -44,7 +45,7 @@ def detect_zscore(
     -------
     AnomalySummary containing only flagged AnomalyResult rows.
     """
-    threshold = settings.zscore_threshold
+    threshold = settings.zscore_threshold if threshold is None else threshold
     numeric_cols = df.select_dtypes(include="number").columns.tolist()
     target_cols = columns if columns is not None else numeric_cols
     target_cols = [c for c in target_cols if c in numeric_cols]

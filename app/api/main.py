@@ -6,6 +6,7 @@ import logging
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Query, Request
+from fastapi.staticfiles import StaticFiles
 
 from app.analytics.correlations import compute_correlation_matrix
 from app.analytics.statistics import compute_descriptive_stats
@@ -117,7 +118,13 @@ async def profile_dataset(
             "provider": None,
             "notice": (
                 "The serverless API returns deterministic analysis. "
-                "Agentic LLM insights are available in the Streamlit app."
+                "Hosted agent interpretation is not enabled for this deployment."
             ),
         },
     }
+
+
+# The Vite build is generated before Vercel packages this FastAPI application.
+# Keep the API routes above the root mount so `/api/*` always reaches FastAPI.
+frontend_dist = Path(__file__).resolve().parents[2] / "frontend" / "dist"
+app.mount("/", StaticFiles(directory=frontend_dist, html=True, check_dir=False), name="frontend")

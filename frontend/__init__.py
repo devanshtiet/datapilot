@@ -1,3 +1,0 @@
-"""
-frontend package init
-"""

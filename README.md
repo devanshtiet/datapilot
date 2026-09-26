@@ -1,78 +1,52 @@
 # DataPilot
 
-> **Agentic AI data-analysis tool** — upload a CSV/Excel, get automated quality scoring, statistical profiling, anomaly detection, and (Mission 2+) LLM-powered root-cause explanations with every number traceable to its exact computation.
+DataPilot profiles CSV and Excel datasets with a React dashboard and a FastAPI analysis service. Every metric is computed deterministically and returned with its evidence; uploaded rows are not sent to an AI provider.
 
----
+## Stack
 
-## Architecture
+- **Frontend:** React 19, Vite
+- **Backend:** FastAPI, Pandas, NumPy
+- **Analysis:** quality scoring, descriptive statistics, correlations, IQR and Z-score anomaly detection
 
-```
-Upload → LangGraph profiling workflow → Quality, statistics, correlations, and anomaly tools → Evidence-grounded insights
-```
+## Run locally
 
-**Core rule:** the LLM never computes a metric. Every number originates from a deterministic Python/SQL tool call wrapped as a Pydantic `EvidenceObject`.
-
-## Agent Insights
-
-The Streamlit app runs the profiling workflow through LangGraph. It always produces a local evidence-based summary. Optional hosted interpretation is available with `GROQ_API_KEY` or `OPENAI_API_KEY` configured in `.env`; set `LLM_PROVIDER` to `groq`, `openai`, or `auto` and restart Streamlit. Hosted interpretation is off by default and requires checking the opt-in in the sidebar. When enabled, only aggregate quality/statistical results and column names are sent to the selected provider; raw rows and sample values stay local. Model names can be overridden with `GROQ_MODEL` and `OPENAI_MODEL`.
-
----
-
-## Tech Stack
-
-| Layer | Choice |
-|---|---|
-| Backend | FastAPI |
-| Frontend | Streamlit |
-| Agent orchestration | LangGraph (Mission 2) |
-| Analytics | Pandas, NumPy, SciPy, scikit-learn |
-| Large-file SQL | DuckDB |
-| Database | PostgreSQL / SQLAlchemy (Mission 3) |
-| LLM | Groq / OpenAI (provider-agnostic, Mission 2) |
-| Visualisation | Plotly |
-| Validation | Pydantic v2 |
-
----
-
-## Quick Start
+Requirements: Python 3.11+ and Node.js 20+.
 
 ```bash
-# 1. Clone and enter the repo
-git clone <repo-url>
-cd datapilot
-
-# 2. Create and activate a virtual environment
 python -m venv .venv
-# Windows
-.venv\Scripts\activate
-# macOS / Linux
-source .venv/bin/activate
-
-# 3. Install dependencies
+# Windows: .venv\Scripts\activate
+# macOS/Linux: source .venv/bin/activate
 pip install -r requirements-local.txt
-
-# 4. Copy and configure environment variables
-cp .env.example .env
-# Edit .env — API keys only needed from Mission 2 onwards
-
-# 5. Generate synthetic test data
-python scripts/generate_synthetic_data.py
-
-# 6. Run the Streamlit demo
-streamlit run frontend/streamlit_app.py
+pnpm install
 ```
 
----
+Start the API and frontend in separate terminals:
 
-## Vercel API
+```bash
+python -m uvicorn api.index:app --reload --port 8000
+```
 
-Vercel serves the FastAPI backend from `api/index.py`. The API exposes:
+```bash
+pnpm dev
+```
 
-- `GET /api/health` for a deployment health check.
-- `GET /api/docs` for interactive API documentation.
-- `POST /api/profile?filename=retail_orders_demo.csv` to profile uploaded CSV or Excel bytes.
+Open `http://localhost:5173`. The Vite development server proxies `/api` requests to FastAPI on port 8000. You can load the included retail-orders sample or upload your own CSV, XLS, or XLSX file.
 
-Send the file as the raw request body. API uploads are limited to 4 MB, and API analysis never sends data to a hosted LLM provider.
+## Production build
+
+```bash
+pnpm build
+```
+
+The Vite build is written to `frontend/dist`. FastAPI serves those assets from `/` and exposes the analysis API under `/api`. Vercel builds the React bundle and deploys the FastAPI application from `api/index.py`.
+
+## API
+
+- `GET /api/health` — deployment health check
+- `GET /api/docs` — interactive API reference
+- `POST /api/profile?filename=retail_orders_demo.csv` — profile raw CSV/XLS/XLSX bytes
+
+Uploads are limited to 4 MB on Vercel. Example:
 
 ```bash
 curl --data-binary "@scripts/sample_data/retail_orders_demo.csv" \
@@ -80,67 +54,15 @@ curl --data-binary "@scripts/sample_data/retail_orders_demo.csv" \
   "https://<your-vercel-domain>/api/profile?filename=retail_orders_demo.csv"
 ```
 
-The serverless API uses the lean `requirements.txt` set and runs deterministic quality, statistics, correlation, IQR, and Z-score analysis. It excludes the Streamlit UI, hosted agent dependencies, and Isolation Forest to stay within Vercel's function bundle limit. Install `requirements-local.txt` for the complete local app and its LangGraph/LLM features.
+## Project layout
 
-The Streamlit interface remains a separate app. Run it locally with the command above or deploy it on a Streamlit host; Vercel serves the FastAPI endpoints, not the Streamlit UI.
-
----
-## Running Tests
-
-```bash
-pytest tests/unit/ -v --cov=app --cov-report=term-missing
+```text
+api/index.py            Vercel FastAPI entry point
+app/api/main.py         API routes and React static-file mount
+app/analytics/           Statistics and correlation analysis
+app/anomaly/             IQR and Z-score detectors
+app/data/                File ingestion and quality scoring
+frontend/src/             React dashboard
+frontend/public/          Bundled demo dataset
+scripts/sample_data/      Sample datasets
 ```
-
----
-
-## Project Structure
-
-```
-datapilot/
-  app/
-    agents/           # LangGraph agents (Mission 2)
-    analytics/        # statistics.py, correlations.py
-    anomaly/          # iqr.py, zscore.py, isolation_forest.py
-    data/             # ingestion.py, quality.py, semantic_layer.py
-    database/         # models.py, session.py, schema.sql
-    models/           # pydantic.py — Evidence Object + all I/O schemas
-    tools/            # tool_registry.py
-    services/         # sql_validator.py, security.py (Mission 3)
-    reports/          # report_generator.py
-    visualization/    # chart_selector.py
-    api/              # FastAPI routes
-  frontend/
-    streamlit_app.py
-  tests/
-    unit/
-    integration/
-    benchmark/
-  scripts/
-    generate_synthetic_data.py
-  config/
-    settings.py
-  requirements.txt
-  README.md
-```
-
----
-
-## Benchmark Results
-
-*Populated in Mission 4.*
-
-| Dataset | Method | Precision | Recall | F1 |
-|---|---|---|---|---|
-| TBD | IQR | — | — | — |
-| TBD | Z-score | — | — | — |
-| TBD | Isolation Forest | — | — | — |
-
----
-
-## Milestones
-
-- [x] **Mission 1** — Ingestion, quality scoring, stats, three anomaly detectors, Streamlit demo
-- [ ] **Mission 2 (in progress)** — LangGraph profiling workflow and optional LLM interpretation are implemented; hypothesis testing and deeper root-cause analysis remain planned
-- [ ] **Mission 3** — NL querying, SQL validation, security guardrails, audit logging
-- [ ] **Mission 4** — Human-in-the-loop feedback, benchmark suite
-- [ ] **Mission 5** — Voice interface (Whisper + TTS)

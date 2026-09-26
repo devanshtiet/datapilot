@@ -34,6 +34,7 @@ def detect_iqr(
     df: pd.DataFrame,
     dataset_version: str,
     columns: list[str] | None = None,
+    multiplier: float | None = None,
 ) -> AnomalySummary:
     """
     Run IQR anomaly detection on numeric columns.
@@ -49,7 +50,7 @@ def detect_iqr(
     AnomalySummary containing AnomalyResult for every (row, column) pair.
     Only flagged rows are included in the results list to keep output concise.
     """
-    k = settings.iqr_fence_multiplier
+    k = settings.iqr_fence_multiplier if multiplier is None else multiplier
     numeric_cols = df.select_dtypes(include="number").columns.tolist()
     target_cols = columns if columns is not None else numeric_cols
     target_cols = [c for c in target_cols if c in numeric_cols]
