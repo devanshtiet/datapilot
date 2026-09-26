@@ -64,6 +64,25 @@ streamlit run frontend/streamlit_app.py
 
 ---
 
+## Vercel API
+
+Vercel serves the FastAPI backend from `api/index.py`. The API exposes:
+
+- `GET /api/health` for a deployment health check.
+- `GET /api/docs` for interactive API documentation.
+- `POST /api/profile?filename=retail_orders_demo.csv` to profile uploaded CSV or Excel bytes.
+
+Send the file as the raw request body. API uploads are limited to 4 MB, and API analysis never sends data to a hosted LLM provider.
+
+```bash
+curl --data-binary "@scripts/sample_data/retail_orders_demo.csv" \
+  -H "Content-Type: application/octet-stream" \
+  "https://<your-vercel-domain>/api/profile?filename=retail_orders_demo.csv"
+```
+
+The Streamlit interface remains a separate app. Run it locally with the command above or deploy it on a Streamlit host; Vercel serves the FastAPI endpoints, not the Streamlit UI.
+
+---
 ## Running Tests
 
 ```bash
