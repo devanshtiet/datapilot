@@ -49,7 +49,7 @@ python -m venv .venv
 source .venv/bin/activate
 
 # 3. Install dependencies
-pip install -r requirements.txt
+pip install -r requirements-local.txt
 
 # 4. Copy and configure environment variables
 cp .env.example .env
@@ -79,6 +79,8 @@ curl --data-binary "@scripts/sample_data/retail_orders_demo.csv" \
   -H "Content-Type: application/octet-stream" \
   "https://<your-vercel-domain>/api/profile?filename=retail_orders_demo.csv"
 ```
+
+The serverless API uses the lean `requirements.txt` set and runs deterministic quality, statistics, correlation, IQR, and Z-score analysis. It excludes the Streamlit UI, hosted agent dependencies, and Isolation Forest to stay within Vercel's function bundle limit. Install `requirements-local.txt` for the complete local app and its LangGraph/LLM features.
 
 The Streamlit interface remains a separate app. Run it locally with the command above or deploy it on a Streamlit host; Vercel serves the FastAPI endpoints, not the Streamlit UI.
 

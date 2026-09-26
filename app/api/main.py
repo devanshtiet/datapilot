@@ -7,9 +7,12 @@ from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Query, Request
 
-from app.agents.planner import run_analysis_agent
+from app.analytics.correlations import compute_correlation_matrix
+from app.analytics.statistics import compute_descriptive_stats
+from app.anomaly.iqr import detect_iqr
+from app.anomaly.zscore import detect_zscore
 from app.data.ingestion import IngestionError, load_file
-from config.settings import settings
+from app.data.quality import score_quality
 
 logger = logging.getLogger(__name__)
 
@@ -75,19 +78,18 @@ async def profile_dataset(
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
     try:
-        analysis = run_analysis_agent(
-            dataframe,
-            ingestion.dataset_version,
-            ingestion.filename,
-            zscore_threshold=zscore_threshold,
-            iqr_multiplier=iqr_multiplier,
-            use_hosted_llm=False,
-        )
+        quality_report = score_quality(dataframe, ingestion.dataset_version, ingestion.filename)
+        statistics = compute_descriptive_stats(dataframe, ingestion.dataset_version)
+        correlations = compute_correlation_matrix(dataframe, ingestion.dataset_version)
+        anomalies = [
+            detect_iqr(dataframe, ingestion.dataset_version, multiplier=iqr_multiplier),
+            detect_zscore(dataframe, ingestion.dataset_version, threshold=zscore_threshold),
+        ]
     except Exception as exc:
         logger.exception("Dataset profiling failed for uploaded file")
         raise HTTPException(status_code=500, detail="Dataset profiling failed.") from exc
 
-    quality = analysis["quality_report"].model_dump(mode="json")
+    quality = quality_report.model_dump(mode="json")
     # The API returns schema and quality metrics, not representative raw values.
     for column_profile in quality.get("column_profiles", []):
         column_profile.pop("sample_values", None)
@@ -95,15 +97,27 @@ async def profile_dataset(
     return {
         "dataset": ingestion.model_dump(mode="json"),
         "quality_report": quality,
-        "statistics": [item.model_dump(mode="json") for item in analysis["stats"]],
-        "correlations": [item.model_dump(mode="json") for item in analysis["correlations"]],
+        "statistics": [item.model_dump(mode="json") for item in statistics],
+        "correlations": [item.model_dump(mode="json") for item in correlations],
         "anomalies": [
             {
                 "method": item.method,
                 "columns_analysed": item.columns_analysed,
                 "n_flagged": item.n_flagged,
             }
-            for item in analysis["anomaly_summaries"]
+            for item in anomalies
         ],
-        "insight": analysis["insight"].model_dump(mode="json"),
+        "insight": {
+            "summary": (
+                f"The dataset scored {quality_report.composite_score:.1f}/100 across "
+                f"{quality_report.n_rows} rows and {quality_report.n_cols} columns."
+            ),
+            "findings": [dimension.reason for dimension in quality_report.dimensions],
+            "generation_mode": "deterministic",
+            "provider": None,
+            "notice": (
+                "The serverless API returns deterministic analysis. "
+                "Agentic LLM insights are available in the Streamlit app."
+            ),
+        },
     }
