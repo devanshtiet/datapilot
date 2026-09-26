@@ -1,0 +1,507 @@
+order_date,customer_id,region,product_category,payment_method,unit_price,quantity,discount_pct,revenue,delivery_days,satisfaction_score
+2025-09-16,C0095,North,Home,Bank transfer,38.04,1,5,36.14,3,3
+2025-06-08,C0279,Central,Electronics,Cash on delivery,291.78,2,0,583.56,5,5
+2025-06-26,C0129,South,Apparel,Card,87.65,4,15,298.01,1,5
+2025-02-15,C0092,Central,Books,Cash on delivery,398.82,1,0,398.82,7,5
+2025-10-09,C0077,West,Electronics,Wallet,340.82,2,0,681.64,6,3
+2025-08-25,C0119,East,Apparel,Cash on delivery,369.16,4,0,1476.64,8,5
+2025-06-29,C0053,North,Garden,Card,353.36,3,0,1060.08,3,5
+2025-02-08,C0072,North,Apparel,Wallet,274.12,2,20,438.59,4,4
+2025-05-11,C0160,Central,Garden,Card,208.9,2,20,334.24,3,5
+2025-10-16,C0027,East,Electronics,Cash on delivery,77.69,2,0,155.38,5,3
+2025-02-15,C0238,East,Apparel,Bank transfer,109.23,3,0,327.69,2,5
+2025-09-11,C0146,Central,Sports,Wallet,168.09,2,0,336.18,4,4
+2025-11-09,C0313,Central,Garden,Card,17.4,1,15,14.79,1,4
+2025-05-15,C0199,East,Home,Cash on delivery,381.6,2,15,648.72,5,5
+2025-08-03,C0005,Central,Books,Cash on delivery,364.15,2,0,728.3,4,5
+2025-03-06,C0027,South,Electronics,Card,175.97,4,0,703.88,4,2
+2025-08-04,C0091,North,Sports,Wallet,162.78,2,0,325.56,4,2
+2025-07-27,C0291,Central,Home,Card,,8,15,1602.76,4,5
+2025-01-26,C0327,West,Books,Wallet,256.36,5,0,1281.8,7,1
+2025-05-13,C0191,Central,Electronics,Card,376.18,3,0,1128.54,6,4
+2025-01-09,C0161,North,Electronics,Bank transfer,264.37,2,0,528.74,3,2
+2025-08-12,C0153,Central,Sports,Wallet,141.0,2,0,282.0,2,5
+2025-07-01,C0011,North,Garden,Card,265.08,1,0,265.08,2,5
+2025-03-21,C0033,Central,Garden,Card,122.65,4,0,490.6,5,4
+2025-07-01,C0298,West,Books,Card,226.63,2,0,453.26,6,4
+2025-02-17,C0136,South,Sports,Bank transfer,133.72,2,5,254.07,4,4
+2025-05-25,C0184,North,Home,Wallet,413.18,1,10,371.86,7,5
+2025-11-22,C0159,North,Home,Wallet,340.46,1,5,323.44,2,2
+2025-03-11,C0290,Central,Electronics,Wallet,306.97,8,25,1841.82,5,5
+2025-07-19,C0214,Central,Electronics,Wallet,312.45,2,0,624.9,7,5
+2025-10-22,C0232,Central,Apparel,Wallet,398.54,3,10,1076.06,4,5
+2025-10-24,C0317,South,Apparel,Wallet,221.16,5,25,829.35,10,
+2025-06-21,C0322,West,Books,Cash on delivery,132.42,4,20,423.74,9,5
+2025-06-11,C0301,East,Sports,Bank transfer,377.73,1,0,377.73,2,5
+2025-12-16,C0072,East,Electronics,Wallet,128.13,2,5,243.45,4,5
+2025-10-08,C0036,North,Garden,Card,279.15,1,0,279.15,3,4
+2025-05-07,C0059,West,Books,Bank transfer,32.04,1,5,30.44,2,3
+2025-03-20,C0082,East,Electronics,Card,14.4,6,0,86.4,2,3
+2025-07-27,C0350,East,Home,Cash on delivery,389.69,4,20,1247.01,3,4
+2025-08-03,C0343,East,Sports,Bank transfer,46.17,3,15,117.73,1,4
+2025-11-23,C0107,East,Electronics,Card,177.66,2,0,355.32,2,4
+2025-11-21,C0112,West,Sports,Cash on delivery,158.19,1,0,158.19,4,4
+2025-11-02,C0220,South,Books,Cash on delivery,297.31,5,20,1189.24,3,5
+2025-08-16,C0015,East,Electronics,Card,391.47,6,10,2113.94,1,4
+2025-03-31,C0046,South,Home,Wallet,45.8,3,0,137.4,8,5
+2025-02-19,C0027,West,Apparel,Bank transfer,176.63,3,20,423.91,4,3
+2025-03-02,C0064,North,Books,Bank transfer,86.39,1,5,82.07,7,3
+2025-12-03,C0043,East,Apparel,Wallet,82.45,3,5,234.98,5,5
+2025-05-19,C0019,South,Electronics,Bank transfer,260.19,2,15,442.32,5,5
+2025-02-27,C0311,West,Sports,Cash on delivery,51.12,2,10,92.02,2,4
+2025-05-26,C0031,South,Sports,Card,360.45,8,0,2883.6,9,2
+2025-07-15,C0341,South,Sports,Cash on delivery,40.21,2,5,76.4,2,4
+2025-03-22,C0327,South,Garden,Bank transfer,229.98,3,10,620.95,3,3
+2025-10-05,C0174,South,Sports,Cash on delivery,21.25,2,5,40.38,1,5
+2025-11-29,C0257,North,Books,Bank transfer,301.5,1,0,301.5,4,4
+2025-04-27,C0353,West,Apparel,Bank transfer,227.9,1,20,182.32,2,5
+2025-08-29,C0050,Central,Garden,Card,107.28,8,15,729.5,2,5
+2025-11-04,C0354,West,Apparel,Cash on delivery,329.51,1,0,329.51,8,4
+2025-08-26,C0092,Unknown,Sports,Cash on delivery,154.76,1,10,139.28,2,5
+2025-10-11,C0075,Central,Garden,Card,56.24,3,25,126.54,7,5
+2025-10-04,C0293,Central,Electronics,Card,406.32,4,0,1625.28,5,5
+2025-05-27,C0158,North,Sports,Card,66.18,1,0,66.18,6,5
+2025-02-25,C0002,Central,Garden,Wallet,411.19,4,15,1398.05,7,5
+2025-12-28,C0207,North,Apparel,Cash on delivery,225.03,2,15,382.55,2,5
+2025-10-17,C0118,East,Electronics,Wallet,69.0,4,0,276.0,7,3
+2025-05-06,C0241,West,Home,Card,315.97,1,20,252.78,4,1
+2025-02-19,C0041,Central,Sports,Cash on delivery,40.15,2,25,60.22,4,5
+2025-11-18,C0199,North,Sports,Bank transfer,42.76,4,10,153.94,4,4
+2025-01-20,C0326,Central,Garden,Card,194.05,6,15,989.66,2,3
+2025-02-21,C0121,West,Home,Card,279.41,2,10,502.94,4,2
+2025-09-09,C0254,Central,Home,Cash on delivery,40.69,6,20,195.31,9,5
+2025-09-12,C0033,North,Apparel,Cash on delivery,117.96,2,15,200.53,10,3
+2025-08-24,C0071,West,Books,Card,28.67,2,20,45.87,6,3
+2025-08-03,C0238,North,Apparel,Wallet,153.18,3,10,413.59,5,5
+2025-12-25,C0343,Central,Sports,Card,279.61,3,15,713.01,5,3
+2025-02-05,C0147,North,Garden,Wallet,293.58,1,0,293.58,4,4
+2025-07-06,C0246,West,Garden,Card,115.44,3,20,277.06,4,5
+2025-07-24,C0003,West,Apparel,Bank transfer,200.42,4,0,801.68,4,5
+2025-02-07,C0121,Central,Sports,Card,95.9,1,20,76.72,4,5
+2025-03-31,C0144,South,Home,Card,304.22,2,20,486.75,1,2
+2025-11-20,C0282,West,Books,Cash on delivery,23.61,2,10,42.5,4,3
+2025-10-09,C0140,East,Home,Bank transfer,89.86,2,0,179.72,5,4
+2025-03-11,C0172,South,Electronics,Cash on delivery,291.75,3,0,875.25,6,4
+2025-07-04,C0291,South,Books,Bank transfer,266.19,8,0,2129.52,3,4
+2025-10-04,C0194,East,Home,Cash on delivery,284.77,1,10,256.29,2,4
+2025-06-08,C0341,Central,Apparel,Wallet,96.88,5,0,484.4,3,4
+2025-10-23,C0045,Central,Home,Bank transfer,292.76,3,5,834.37,4,4
+2025-07-22,C0214,North,Books,Card,298.06,2,15,506.7,8,4
+2025-11-25,C0202,West,Sports,Bank transfer,165.59,1,0,165.59,3,4
+2025-07-08,C0333,North,Apparel,Cash on delivery,347.05,2,10,624.69,2,3
+2025-12-12,C0235,Central,Sports,Bank transfer,319.27,2,15,542.76,4,3
+2025-07-13,C0064,South,Books,Card,305.87,1,15,259.99,4,3
+2025-07-10,C0256,North,Electronics,Cash on delivery,,1,0,211.77,6,5
+2025-09-27,C0223,West,Books,Card,415.47,3,0,1246.41,5,3
+2025-04-03,C0180,South,Garden,Cash on delivery,87.41,1,0,87.41,6,4
+2025-11-26,C0004,South,Books,Wallet,69.87,3,25,157.21,1,3
+2025-09-20,C0202,West,Sports,Bank transfer,203.51,6,5,1160.01,2,4
+2025-01-12,C0211,Central,Books,Card,60.51,1,5,57.48,4,2
+2025-12-14,C0261,East,Garden,Bank transfer,381.4,6,25,1716.3,4,2
+2025-05-20,C0099,North,Sports,Bank transfer,266.09,3,25,598.7,4,4
+2025-04-22,C0106,Central,Home,Wallet,326.11,2,10,587.0,4,5
+2025-04-26,C0140,North,Sports,Wallet,333.99,4,5,1269.16,5,3
+2025-09-28,C0226,Central,Apparel,Cash on delivery,260.38,5,15,1106.62,5,3
+2025-03-23,C0289,South,Home,Bank transfer,49.83,2,25,74.75,6,5
+2025-09-07,C0008,North,Home,Wallet,58.21,1,15,49.48,2,5
+2025-10-04,C0327,Central,Sports,Cash on delivery,294.61,3,0,883.83,5,3
+2025-12-09,C0285,West,Electronics,Card,300.61,2,20,480.98,3,3
+2025-05-29,C0031,East,Apparel,Card,237.57,5,5,1128.46,5,4
+2025-11-04,C0043,East,Garden,Wallet,195.45,1,20,156.36,2,5
+2025-11-19,C0002,West,Apparel,Card,309.64,1,20,247.71,9,3
+2025-05-25,C0320,East,Electronics,Bank transfer,268.6,3,5,765.51,2,4
+2025-12-19,C0337,West,Home,Bank transfer,405.31,8,0,3242.48,4,4
+2025-04-04,C0205,East,Sports,Wallet,145.92,5,10,656.64,4,2
+2025-05-27,C0114,South,Garden,Bank transfer,84.29,1,0,84.29,4,5
+2025-07-15,C0036,Central,Garden,Cash on delivery,199.28,4,25,597.84,3,5
+2025-12-03,C0023,North,Books,Card,52.25,4,20,167.2,6,4
+2025-02-23,C0291,West,Apparel,Cash on delivery,131.95,5,25,494.81,5,4
+2025-04-15,C0329,West,Books,Wallet,371.79,3,25,836.53,6,3
+2025-11-08,C0115,South,Garden,Card,379.19,1,15,322.31,5,4
+2025-09-10,C0279,South,Apparel,Cash on delivery,319.65,3,0,958.95,3,2
+2025-07-28,C0311,South,Home,Wallet,211.04,3,0,633.12,95,4
+2025-02-16,C0255,Central,Sports,Wallet,98.39,1,15,83.63,7,5
+2025-01-30,C0164,East,Home,Wallet,314.22,2,0,628.44,6,4
+2025-06-12,C0241,North,Apparel,Wallet,192.34,2,25,288.51,5,3
+2025-05-28,C0205,West,Sports,Bank transfer,214.17,1,15,182.04,5,3
+2025-08-30,C0168,West,Apparel,Wallet,59.68,5,20,238.72,3,4
+2025-05-17,C0356,South,Electronics,Card,380.32,2,10,684.58,3,4
+2025-02-27,C0292,South,Home,Card,281.08,6,0,1686.48,4,4
+2025-05-10,C0327,West,Books,Card,139.06,2,0,278.12,1,5
+2025-05-17,C0262,West,Garden,Bank transfer,232.95,1,0,232.95,5,3
+2025-11-16,C0121,Central,Apparel,Card,210.43,4,0,841.72,8,4
+2025-05-07,C0083,North,Home,Wallet,413.55,5,15,1757.59,4,4
+2025-01-28,C0328,Central,Sports,Card,338.03,3,0,1014.09,2,4
+2025-12-18,C0125,Central,Home,Wallet,281.42,5,0,1407.1,2,4
+2025-02-23,C0279,North,Apparel,Bank transfer,162.62,5,15,691.13,2,4
+2025-04-09,C0028,East,Electronics,Cash on delivery,232.68,8,5,1768.37,4,4
+2025-06-16,C0241,North,Garden,Card,241.26,3,20,579.02,7,4
+2025-09-22,C0357,South,Garden,Cash on delivery,142.82,2,25,214.23,4,4
+2025-10-16,C0085,East,Home,Cash on delivery,111.64,2,0,223.28,5,5
+2025-01-12,C0075,East,Garden,Cash on delivery,396.51,3,15,1011.1,2,4
+2025-11-14,C0135,North,Apparel,Cash on delivery,188.75,4,25,566.25,5,4
+2025-01-15,C0177,Central,Sports,Card,399.41,1,0,399.41,5,3
+2025-12-23,C0281,Central,Sports,Bank transfer,46.6,3,15,118.83,3,5
+2025-11-14,C0212,East,Books,Bank transfer,354.52,2,10,638.14,7,5
+2025-10-18,C0308,Central,Garden,Wallet,326.41,4,0,1305.64,4,4
+2025-04-05,C0088,South,Garden,Cash on delivery,298.9,3,5,851.86,8,4
+2025-10-10,C0059,South,Books,Wallet,176.95,3,0,530.85,2,2
+2025-05-29,C0003,West,Home,Wallet,288.56,1,0,288.56,3,5
+2025-05-17,C0119,East,Sports,Bank transfer,241.93,2,0,483.86,8,5
+2025-12-11,C0115,West,Electronics,Cash on delivery,139.04,2,10,250.27,7,4
+2025-05-02,C0219,Central,Sports,Cash on delivery,231.55,4,20,740.96,7,5
+2025-04-05,C0305,North,Apparel,Bank transfer,404.1,2,25,606.15,5,4
+2025-11-29,C0324,East,Books,Bank transfer,266.37,1,0,266.37,5,5
+2025-01-26,C0192,North,Home,Wallet,88.51,1,10,79.66,2,5
+2025-07-18,C0273,North,Books,Card,399.23,3,15,1018.04,4,2
+2025-04-30,C0150,North,Apparel,Wallet,200.56,1,10,180.5,9,2
+2025-04-02,C0123,North,Garden,Bank transfer,190.14,8,20,1216.9,2,4
+2025-08-31,C0193,South,Books,Bank transfer,298.37,2,25,447.56,4,5
+2025-02-25,C0082,South,Sports,Cash on delivery,54.57,3,5,155.52,4,4
+2025-04-07,C0220,East,Electronics,Bank transfer,57.18,1,20,45.74,6,5
+2025-10-28,C0310,South,Sports,Cash on delivery,123.15,1,25,92.36,2,5
+2025-05-22,C0285,Central,Electronics,Cash on delivery,356.67,2,0,713.34,2,5
+2025-11-25,C0257,South,Electronics,Bank transfer,171.92,1,25,128.94,4,5
+2025-11-22,C0268,East,Sports,Card,196.16,2,15,333.47,4,5
+2025-06-27,C0353,North,Sports,Bank transfer,95.59,3,0,286.77,8,5
+2025-03-03,C0357,South,Apparel,Wallet,71.3,3,5,203.2,5,5
+2025-03-04,C0325,North,Garden,Wallet,360.61,1,0,360.61,4,5
+2025-12-08,C0312,South,Apparel,Wallet,304.25,2,15,517.23,4,4
+2025-08-13,C0182,North,Books,Card,,2,5,477.77,4,5
+2025-12-31,C0066,Central,Apparel,Cash on delivery,270.59,3,5,771.18,5,3
+2025-12-08,C0117,North,Apparel,Cash on delivery,254.66,2,10,458.39,3,5
+2025-03-09,C0229,North,Apparel,Cash on delivery,95.88,2,0,191.76,7,4
+2025-08-08,C0178,Central,Books,Bank transfer,408.94,6,0,2453.64,3,2
+2025-03-26,C0336,West,Sports,Wallet,335.44,4,0,1341.76,4,3
+2025-08-29,C0233,Central,Books,Cash on delivery,269.34,1,0,269.34,5,3
+2025-12-04,C0067,South,Sports,Wallet,416.95,1,10,375.25,7,2
+2025-02-12,C0315,East,Books,Wallet,386.34,2,20,618.14,2,5
+2025-07-22,C0134,East,Sports,Wallet,229.64,6,20,1102.27,3,5
+2025-07-13,C0179,North,Books,Cash on delivery,335.09,3,25,753.95,3,4
+2025-02-01,C0121,East,Garden,Bank transfer,155.95,1,20,124.76,6,5
+2025-11-05,C0272,South,Electronics,Wallet,35.5,3,5,101.17,1,5
+2025-06-26,C0245,North,Apparel,Cash on delivery,185.85,5,0,929.25,4,1
+2025-08-24,C0250,South,Sports,Wallet,183.56,1,0,183.56,6,4
+2025-06-05,C0091,Central,Apparel,Bank transfer,289.05,3,0,867.15,7,3
+2025-04-10,C0130,Central,Garden,Bank transfer,402.88,2,10,725.18,3,2
+2025-09-21,C0321,East,Home,Card,109.06,1,15,92.7,6,5
+2025-10-25,C0029,West,Electronics,Wallet,75.06,2,0,150.12,3,5
+2025-02-05,C0299,Central,Sports,Bank transfer,198.82,3,5,566.64,5,3
+2025-11-29,C0066,East,Electronics,Wallet,209.8,6,20,1007.04,4,5
+2025-05-17,C0199,South,Books,Wallet,196.5,4,15,668.1,6,4
+2025-03-24,C0010,West,Books,Card,382.48,2,10,688.46,6,5
+2025-01-09,C0254,Central,Apparel,Wallet,331.38,4,0,1325.52,5,5
+2025-07-08,C0195,East,Books,Card,227.45,5,15,966.66,2,4
+2025-08-28,C0186,West,Home,Bank transfer,284.71,1,10,256.24,8,4
+2025-02-19,C0202,East,Home,Wallet,358.35,2,15,609.2,3,4
+2025-03-11,C0030,South,Home,Cash on delivery,49.25,2,5,93.57,2,4
+2025-01-10,C0170,West,Home,Card,140.56,3,10,379.51,4,3
+2025-12-16,C0273,South,Home,Wallet,179.37,2,15,304.93,7,2
+2025-08-31,C0152,South,Apparel,Bank transfer,262.89,6,25,1183.0,5,4
+2025-11-15,C0085,North,Garden,Bank transfer,177.41,1,5,168.54,5,4
+2025-06-17,C0093,South,Sports,Bank transfer,31.43,1,0,31.43,7,3
+2025-04-14,C0014,East,Home,Cash on delivery,142.04,2,20,227.26,6,4
+2025-02-16,C0016,West,Garden,Card,204.63,2,10,368.33,2,5
+2025-08-06,C0254,North,Apparel,Wallet,107.18,5,25,401.93,5,5
+2025-03-01,C0163,Central,Home,Card,72.26,1,15,61.42,8,4
+2025-04-18,C0123,Central,Sports,Cash on delivery,355.68,4,10,1280.45,6,
+2025-05-25,C0262,South,Books,Cash on delivery,175.44,1,25,131.58,5,2
+2025-05-22,C0295,West,Home,Cash on delivery,101.23,2,25,151.84,7,5
+2025-10-06,C0073,North,Apparel,Card,37.0,5,0,185.0,2,5
+2025-01-12,C0060,West,Apparel,Cash on delivery,85.08,2,25,127.62,6,4
+2025-08-05,C0144,South,Electronics,Cash on delivery,185.26,2,20,296.42,2,3
+2025-04-08,C0263,East,Books,Cash on delivery,315.88,1,10,284.29,6,3
+2025-09-19,C0073,East,Home,Wallet,377.61,3,10,1019.55,1,3
+2025-01-15,C0040,East,Home,Bank transfer,224.72,6,15,1146.07,3,1
+2025-05-01,C0348,South,Electronics,Card,352.14,6,15,1795.91,4,4
+2025-04-18,C0095,Central,Home,Card,170.03,1,5,161.53,4,5
+2025-06-16,C0069,South,Garden,Bank transfer,172.18,3,25,387.4,8,4
+2025-08-21,C0316,North,Home,Cash on delivery,36.13,1,0,36.13,10,4
+2025-07-18,C0346,South,Books,Card,389.46,4,5,1479.95,2,4
+2025-12-05,C0080,East,Apparel,Card,115.58,8,20,739.71,3,4
+2025-02-13,C0201,East,Sports,Card,203.26,2,0,406.52,4,4
+2025-09-23,C0262,East,Electronics,Cash on delivery,234.51,3,15,598.0,5,5
+2025-12-26,C0240,Central,Garden,Bank transfer,20.64,5,15,87.72,5,4
+2025-06-18,C0095,West,Home,Bank transfer,314.22,5,10,1413.99,6,4
+2025-07-31,C0242,Central,Apparel,Cash on delivery,96.68,1,25,72.51,2,4
+2025-11-28,C0013,South,Apparel,Wallet,80.19,2,0,160.38,7,4
+2025-12-25,C0104,North,Home,Wallet,153.22,1,5,145.56,7,4
+2025-09-17,C0194,Central,Electronics,Card,47.47,2,25,71.2,5,1
+2025-02-12,C0211,Central,Sports,Card,22.45,1,15,19.08,7,1
+2025-08-08,C0205,West,Books,Cash on delivery,387.67,5,0,1938.35,2,5
+2025-02-27,C0212,South,Sports,Cash on delivery,53.77,1,0,53.77,5,4
+2025-07-29,C0085,Central,Electronics,Card,83.33,4,10,299.99,8,2
+2025-03-20,C0198,North,Apparel,Cash on delivery,121.64,2,0,243.28,1,4
+2025-05-20,C0272,West,Electronics,Card,24.69,3,10,66.66,5,4
+2025-05-31,C0177,South,Home,Cash on delivery,216.89,1,5,206.05,1,4
+2025-09-03,C0263,North,Apparel,Cash on delivery,116.56,1,10,104.9,3,2
+2025-08-06,C0011,East,Sports,Wallet,28.7,4,25,86.1,9,5
+2025-12-20,C0028,West,Electronics,Wallet,252.31,1,25,189.23,5,4
+2025-12-26,C0246,West,Apparel,Wallet,180.71,2,0,361.42,6,4
+2025-02-08,C0252,Central,Electronics,Wallet,283.3,3,25,637.43,6,4
+2025-01-08,C0133,West,Electronics,Bank transfer,59.37,1,15,50.46,7,5
+2025-05-27,C0349,East,Garden,Wallet,221.18,5,5,1050.61,4,5
+2025-07-29,C0323,West,Sports,Bank transfer,102.38,4,10,368.57,6,5
+2025-06-15,C0179,South,Electronics,Wallet,407.97,3,0,1223.91,1,4
+2025-04-22,C0224,East,Apparel,Wallet,,5,0,1740.0,1,4
+2025-04-18,C0199,West,Books,Bank transfer,287.06,2,25,430.59,5,4
+2025-04-26,C0299,South,Electronics,Cash on delivery,250.11,3,20,600.26,4,5
+2025-09-24,C0074,Central,Apparel,Card,259.92,1,0,259.92,5,5
+2025-05-04,C0155,North,Books,Bank transfer,395.74,1,10,356.17,5,4
+2025-10-10,C0010,Central,Sports,Card,217.67,5,20,870.68,7,5
+2025-02-11,C0031,East,Electronics,Card,369.92,2,10,665.86,4,5
+2025-12-31,C0238,East,Electronics,Card,218.63,2,10,393.53,5,3
+2025-12-04,C0025,West,Apparel,Card,394.07,8,15,2679.68,4,3
+2025-06-21,C0064,North,Home,Bank transfer,181.27,3,5,516.62,3,4
+2025-01-03,C0079,West,Sports,Cash on delivery,223.82,4,0,895.28,4,4
+2025-05-18,C0040,Central,Apparel,Bank transfer,127.22,5,5,604.29,7,5
+2025-09-24,C0312,North,Sports,Bank transfer,366.28,1,25,274.71,4,5
+2025-02-13,C0118,West,Electronics,Bank transfer,341.18,2,25,511.77,3,5
+2025-09-21,C0194,North,Electronics,Card,237.42,2,0,474.84,5,5
+2025-07-27,C0150,Central,Apparel,Wallet,247.07,2,25,370.61,7,3
+2025-05-17,C0123,South,Electronics,Wallet,378.19,3,0,1134.57,3,3
+2025-08-15,C0109,East,Apparel,Wallet,376.75,5,25,1412.81,6,3
+2025-08-26,C0075,East,Apparel,Card,269.84,4,25,809.52,2,3
+2025-03-17,C0217,South,Books,Card,122.58,1,25,91.94,2,5
+2025-03-14,C0233,South,Apparel,Wallet,408.43,3,5,1164.03,4,5
+2025-01-17,C0121,West,Apparel,Card,165.93,5,0,829.65,7,4
+2025-02-13,C0350,West,Apparel,Wallet,58.97,2,25,88.45,5,3
+2025-10-14,C0087,South,Books,Cash on delivery,298.66,2,20,477.86,2,4
+2025-06-14,C0143,Central,Sports,Card,236.51,2,20,378.42,4,5
+2025-08-25,C0267,West,Apparel,Card,69.18,1,15,58.8,5,3
+2025-11-04,C0326,North,Electronics,Wallet,365.06,4,25,1095.18,4,3
+2025-10-29,C0148,East,Books,Bank transfer,348.11,2,20,556.98,6,4
+2025-07-09,C0087,South,Electronics,Bank transfer,116.17,4,15,394.98,6,5
+2025-03-02,C0222,South,Electronics,Cash on delivery,236.51,3,25,532.15,6,3
+2025-06-12,C0251,West,Apparel,Wallet,381.4,5,10,1716.3,5,3
+2025-12-10,C0099,Central,Sports,Card,245.71,2,0,491.42,4,5
+2025-09-16,C0020,Central,Books,Bank transfer,154.66,1,15,131.46,7,5
+2025-08-18,C0227,South,Garden,Bank transfer,344.61,2,0,689.22,9,5
+2025-06-04,C0288,Unknown,Apparel,Cash on delivery,279.43,4,0,1117.72,1,4
+2025-06-22,C0017,East,Apparel,Cash on delivery,387.89,2,10,698.2,3,5
+2025-12-12,C0161,Central,Apparel,Cash on delivery,361.99,5,0,1809.95,1,4
+2025-10-08,C0245,Central,Books,Bank transfer,50.84,2,0,101.68,5,5
+2025-07-27,C0151,West,Electronics,Card,269.38,1,0,269.38,9,3
+2025-01-01,C0274,Central,Electronics,Cash on delivery,191.42,3,25,430.69,8,4
+2025-03-18,C0247,North,Books,Wallet,192.07,8,0,1536.56,5,4
+2025-05-04,C0101,North,Apparel,Cash on delivery,391.77,3,15,999.01,3,4
+2025-09-16,C0034,East,Home,Bank transfer,21.09,1,0,21.09,7,5
+2025-03-15,C0010,South,Books,Wallet,387.86,3,15,989.04,7,4
+2025-11-03,C0095,South,Sports,Cash on delivery,316.65,4,5,1203.27,4,5
+2025-02-08,C0224,East,Sports,Wallet,282.23,3,5,804.36,6,5
+2025-09-02,C0333,East,Home,Cash on delivery,47.66,3,0,142.98,7,4
+2025-08-21,C0251,North,Electronics,Bank transfer,277.46,5,10,1248.57,5,3
+2025-07-11,C0271,East,Sports,Wallet,367.75,1,10,330.98,3,4
+2025-11-28,C0192,South,Electronics,Bank transfer,81.11,2,15,137.89,3,4
+2025-02-21,C0016,West,Electronics,Cash on delivery,106.44,4,0,425.76,2,3
+2025-11-25,C0024,East,Books,Bank transfer,313.15,2,5,594.98,4,4
+2025-07-13,C0312,Central,Home,Cash on delivery,347.8,1,10,313.02,4,5
+2025-07-14,C0359,South,Sports,Wallet,374.85,1,0,374.85,8,3
+2025-11-27,C0336,East,Sports,Wallet,272.93,4,20,873.38,4,5
+2025-05-13,C0141,East,Books,Card,373.72,1,20,298.98,8,4
+2025-07-28,C0224,South,Electronics,Card,310.66,3,20,745.58,9,3
+2025-12-20,C0038,East,Electronics,Wallet,221.61,5,5,1052.65,4,1
+2025-03-25,C0299,East,Apparel,Cash on delivery,46.87,1,10,42.18,6,3
+2025-10-31,C0213,West,Home,Card,302.46,2,15,514.18,4,5
+2025-09-25,C0119,South,Garden,Wallet,155.18,1,15,131.9,1,4
+2025-04-12,C0164,Central,Home,Cash on delivery,116.55,4,10,419.58,2,5
+2025-08-28,C0228,West,Sports,Wallet,30.83,3,15,78.62,1,4
+2025-10-02,C0293,West,Garden,Cash on delivery,38.81,1,25,29.11,4,4
+2025-09-30,C0331,West,Garden,Cash on delivery,101.91,1,0,101.91,6,4
+2025-04-21,C0199,East,Books,Bank transfer,406.73,3,0,1220.19,7,5
+2025-04-23,C0335,North,Electronics,Wallet,163.88,1,0,163.88,6,5
+2025-07-07,C0057,East,Garden,Bank transfer,64.94,2,25,97.41,1,5
+2025-12-01,C0179,South,Books,Bank transfer,410.68,1,0,410.68,6,4
+2025-01-09,C0189,Central,Electronics,Card,387.91,2,20,620.66,2,1
+2025-12-06,C0259,Central,Sports,Wallet,227.69,1,0,227.69,5,4
+2025-01-04,C0141,South,Garden,Wallet,377.74,2,15,642.16,4,3
+2025-12-05,C0355,Central,Home,Bank transfer,24.06,5,5,114.28,3,3
+2025-08-01,C0265,North,Books,Wallet,102.03,5,20,408.12,4,5
+2025-10-23,C0339,North,Sports,Bank transfer,30.43,8,5,231.27,2,4
+2025-05-06,C0242,East,Apparel,Cash on delivery,,2,20,365.44,3,4
+2025-11-23,C0331,North,Apparel,Cash on delivery,267.15,3,0,801.45,5,5
+2025-09-15,C0355,North,Apparel,Card,373.37,3,0,1120.11,7,3
+2025-07-24,C0039,Central,Sports,Wallet,71.18,1,20,56.94,3,2
+2025-11-25,C0244,North,Garden,Card,276.39,2,25,414.58,5,5
+2025-01-10,C0233,South,Home,Bank transfer,275.97,3,5,786.51,4,5
+2025-07-16,C0067,North,Electronics,Bank transfer,360.13,2,0,720.26,3,4
+2025-01-26,C0216,Central,Home,Cash on delivery,137.79,3,15,351.36,1,4
+2025-04-05,C0259,Central,Sports,Wallet,212.2,4,0,848.8,6,4
+2025-12-01,C0059,South,Home,Cash on delivery,335.14,1,10,301.63,2,5
+2025-01-15,C0109,West,Garden,Bank transfer,206.74,4,25,620.22,4,5
+2025-01-08,C0356,Central,Books,Cash on delivery,98.35,1,25,73.76,6,5
+2025-03-02,C0187,East,Home,Card,192.88,2,10,347.18,5,3
+2025-02-21,C0050,Central,Apparel,Wallet,114.58,6,25,515.61,7,1
+2025-01-15,C0269,South,Home,Wallet,308.49,3,0,925.47,8,4
+2025-12-16,C0127,North,Electronics,Cash on delivery,193.38,1,0,193.38,1,5
+2025-08-16,C0212,North,Home,Cash on delivery,71.04,2,0,142.08,1,4
+2025-11-07,C0182,East,Garden,Wallet,31.4,4,0,125.6,4,4
+2025-10-28,C0275,West,Apparel,Bank transfer,65.97,3,0,197.91,3,4
+2025-07-08,C0204,North,Electronics,Wallet,351.13,1,0,351.13,8,3
+2025-05-04,C0002,South,Electronics,Cash on delivery,55.52,2,0,111.04,4,2
+2025-07-22,C0278,Central,Books,Wallet,146.96,1,0,146.96,8,4
+2025-03-28,C0046,South,Books,Cash on delivery,362.55,6,15,1849.01,3,3
+2025-09-15,C0043,Central,Garden,Card,319.81,2,20,511.7,5,5
+2025-10-24,C0344,West,Apparel,Wallet,252.48,5,5,1199.28,3,2
+2025-11-08,C0127,Central,Home,Bank transfer,111.42,3,5,317.55,5,5
+2025-01-09,C0295,West,Garden,Card,412.11,6,15,2101.76,9,5
+2025-08-07,C0036,East,Home,Wallet,385.64,2,5,732.72,4,4
+2025-09-01,C0061,East,Apparel,Wallet,178.91,4,15,608.29,3,5
+2025-05-20,C0317,South,Sports,Wallet,229.95,3,25,517.39,1,5
+2025-09-03,C0301,Central,Home,Card,33.11,5,10,149.0,3,5
+2025-07-23,C0170,West,Apparel,Wallet,223.08,3,0,98765.43,5,3
+2025-10-17,C0298,West,Electronics,Cash on delivery,328.99,3,5,937.62,6,1
+2025-12-17,C0092,Central,Garden,Bank transfer,411.92,3,5,1173.97,5,4
+2025-08-12,C0066,Central,Garden,Bank transfer,404.87,1,5,384.63,4,4
+2025-04-03,C0302,North,Sports,Cash on delivery,318.43,3,10,859.76,5,4
+2025-03-24,C0032,South,Apparel,Card,19.82,1,10,17.84,4,5
+2025-01-31,C0087,West,Garden,Card,297.26,1,5,282.4,1,4
+2025-05-06,C0325,East,Garden,Bank transfer,128.88,1,25,96.66,5,5
+2025-06-24,C0219,West,Apparel,Card,317.77,2,20,508.43,7,4
+2025-05-27,C0184,West,Books,Wallet,360.68,3,0,1082.04,1,2
+2025-11-06,C0071,West,Books,Wallet,140.25,2,0,280.5,9,4
+2025-08-26,C0117,Central,Books,Card,362.86,3,0,1088.58,5,5
+2025-05-15,C0351,West,Sports,Bank transfer,262.91,3,25,591.55,6,4
+2025-03-07,C0227,Central,Sports,Bank transfer,304.5,2,0,609.0,7,4
+2025-03-31,C0311,West,Apparel,Wallet,266.67,1,5,253.34,6,4
+2025-08-13,C0184,East,Home,Bank transfer,218.68,3,5,623.24,6,5
+2025-05-25,C0155,East,Books,Cash on delivery,351.31,4,0,1405.24,4,
+2025-03-07,C0002,East,Books,Bank transfer,12.26,1,25,9.2,1,5
+2025-02-06,C0219,East,Electronics,Cash on delivery,162.91,1,0,162.91,5,4
+2025-02-15,C0150,North,Sports,Card,367.64,6,25,1654.38,4,4
+2025-05-27,C0177,Central,Electronics,Bank transfer,365.43,1,20,292.34,5,5
+2025-09-25,C0309,East,Garden,Wallet,399.91,5,0,1999.55,3,5
+2025-05-28,C0095,Central,Apparel,Bank transfer,286.42,1,0,286.42,6,4
+2025-08-29,C0078,West,Home,Cash on delivery,314.31,4,5,1194.38,6,4
+2025-06-23,C0226,West,Home,Cash on delivery,357.54,2,10,643.57,4,4
+2025-09-10,C0076,North,Garden,Card,338.92,2,25,508.38,4,3
+2025-01-12,C0171,South,Books,Wallet,256.73,4,5,975.57,6,1
+2025-12-15,C0113,East,Electronics,Card,264.4,5,0,1322.0,6,5
+2025-09-16,C0346,East,Apparel,Card,59.17,3,0,177.51,6,2
+2025-04-20,C0169,West,Electronics,Cash on delivery,80.53,3,10,217.43,6,5
+2025-03-30,C0143,Central,Sports,Card,297.98,4,15,1013.13,3,5
+2025-11-08,C0289,Central,Home,Wallet,255.21,6,0,1531.26,2,4
+2025-07-11,C0227,West,Books,Bank transfer,309.1,2,20,494.56,6,4
+2025-01-25,C0151,South,Home,Card,91.13,6,25,410.08,4,5
+2025-08-31,C0162,Central,Home,Cash on delivery,413.61,1,0,413.61,6,3
+2025-05-15,C0306,South,Home,Cash on delivery,370.59,2,20,592.94,1,4
+2025-01-17,C0056,West,Electronics,Cash on delivery,14.92,2,0,29.84,6,4
+2025-09-01,C0104,North,Apparel,Card,155.32,3,5,442.66,3,2
+2025-10-22,C0104,West,Electronics,Wallet,271.47,5,15,1153.75,5,3
+2025-07-27,C0236,West,Electronics,Bank transfer,282.81,4,0,1131.24,6,3
+2025-06-08,C0066,South,Apparel,Cash on delivery,133.94,1,25,100.45,10,3
+2025-08-06,C0098,West,Home,Cash on delivery,76.81,2,15,130.58,5,4
+2025-08-29,C0251,Central,Electronics,Wallet,112.37,1,5,106.75,6,5
+2025-10-23,C0168,East,Apparel,Cash on delivery,196.51,2,20,314.42,4,5
+2025-05-02,C0319,Central,Electronics,Wallet,14.53,2,5,27.61,2,5
+2025-06-23,C0186,Central,Garden,Bank transfer,294.46,5,5,1398.68,7,5
+2025-11-09,C0059,West,Garden,Wallet,315.56,4,20,1009.79,3,5
+2025-03-08,C0141,East,Garden,Card,322.97,1,0,322.97,7,4
+2025-09-22,C0127,Central,Apparel,Bank transfer,178.48,2,15,303.42,6,5
+2025-09-11,C0088,Central,Apparel,Bank transfer,265.64,3,0,796.92,4,4
+2025-06-29,C0126,West,Electronics,Wallet,116.79,1,25,87.59,10,4
+2025-02-15,C0151,Central,Sports,Cash on delivery,241.93,2,0,483.86,1,3
+2025-05-29,C0014,South,Electronics,Wallet,374.41,2,0,748.82,5,4
+2025-05-12,C0274,Central,Books,Bank transfer,116.92,1,25,87.69,4,4
+2025-09-01,C0175,West,Garden,Wallet,272.24,3,10,735.05,8,3
+2025-03-18,C0292,Central,Home,Cash on delivery,242.44,2,5,460.64,3,5
+2025-09-16,C0057,North,Apparel,Card,409.42,1,5,388.95,4,4
+2025-07-31,C0186,West,Home,Cash on delivery,,2,0,152.26,10,5
+2025-04-28,C0349,North,Apparel,Wallet,117.31,4,20,375.39,3,3
+2025-11-07,C0177,East,Books,Wallet,347.91,4,5,1322.06,5,4
+2025-12-06,C0010,West,Electronics,Card,74.34,4,20,237.89,5,5
+2025-10-15,C0032,West,Garden,Card,406.98,8,15,2767.46,4,4
+2025-09-07,C0249,Central,Apparel,Wallet,382.96,3,10,1033.99,8,3
+2025-06-09,C0064,West,Sports,Bank transfer,97.41,2,10,175.34,2,3
+2025-08-07,C0067,Central,Books,Bank transfer,220.24,2,5,418.46,4,4
+2025-12-19,C0154,West,Apparel,Cash on delivery,280.93,1,0,280.93,3,4
+2025-07-10,C0242,South,Home,Bank transfer,79.03,3,20,189.67,5,4
+2025-04-10,C0140,Central,Sports,Wallet,332.74,2,25,499.11,4,5
+2025-12-29,C0017,North,Apparel,Wallet,72.74,1,15,61.83,3,3
+2025-05-14,C0317,East,Electronics,Wallet,189.11,1,0,189.11,6,1
+2025-05-04,C0245,South,Apparel,Card,404.42,1,20,323.54,7,5
+2025-11-13,C0277,Central,Apparel,Wallet,153.6,2,10,276.48,5,3
+2025-01-11,C0109,East,Electronics,Wallet,351.36,3,15,895.97,3,2
+2025-10-26,C0223,North,Apparel,Wallet,45.27,4,0,181.08,2,5
+2025-10-13,C0182,East,Electronics,Bank transfer,247.08,1,20,197.66,9,5
+2025-07-17,C0232,East,Home,Bank transfer,255.74,1,15,217.38,2,3
+2025-12-30,C0148,North,Apparel,Card,69.8,3,10,188.46,5,5
+2025-12-30,C0124,West,Apparel,Wallet,88.2,8,0,705.6,3,5
+2025-08-18,C0036,East,Sports,Cash on delivery,160.03,2,0,320.06,4,5
+2025-11-07,C0295,Central,Home,Card,308.86,3,20,741.26,4,4
+2025-03-13,C0120,South,Apparel,Wallet,28.94,8,10,208.37,3,4
+2025-01-23,C0092,North,Garden,Card,50.44,3,5,143.75,5,3
+2025-04-13,C0303,West,Home,Cash on delivery,96.48,5,0,482.4,2,5
+2025-08-10,C0296,West,Garden,Card,404.96,4,0,1619.84,4,4
+2025-11-17,C0129,North,Apparel,Bank transfer,229.32,3,25,515.97,4,3
+2025-07-03,C0250,South,Home,Card,92.67,2,10,166.81,4,4
+2025-01-25,C0220,West,Electronics,Wallet,139.46,3,0,418.38,3,5
+2025-04-14,C0129,West,Sports,Cash on delivery,120.25,6,20,577.2,4,5
+2025-04-13,C0151,South,Apparel,Bank transfer,300.6,3,15,766.53,3,4
+2025-03-12,C0123,Central,Apparel,Bank transfer,318.14,8,0,2545.12,5,3
+2025-03-03,C0181,West,Garden,Wallet,237.56,2,20,380.1,6,2
+2025-05-21,C0209,Central,Books,Bank transfer,51.97,5,15,220.87,9,2
+2025-11-11,C0185,West,Sports,Wallet,229.13,3,0,687.39,4,4
+2025-03-22,C0140,North,Garden,Bank transfer,289.94,3,0,869.82,6,4
+2025-07-28,C0319,West,Books,Wallet,242.45,1,0,242.45,3,5
+2025-04-12,C0252,West,Garden,Bank transfer,164.42,2,0,328.84,6,4
+2025-04-02,C0034,West,Garden,Card,201.04,2,15,341.77,3,5
+2025-11-10,C0052,Central,Garden,Cash on delivery,313.82,1,25,235.37,7,5
+2025-06-21,C0156,West,Apparel,Wallet,140.12,6,25,630.54,4,4
+2025-10-04,C0164,East,Electronics,Card,188.53,4,25,565.59,3,5
+2025-01-04,C0110,West,Sports,Cash on delivery,250.75,2,20,401.2,5,4
+2025-01-15,C0080,Central,Electronics,Card,49.04,8,25,294.24,6,2
+2025-03-31,C0350,East,Apparel,Card,342.03,5,20,1368.12,3,5
+2025-07-30,C0290,West,Electronics,Cash on delivery,203.2,5,0,1016.0,2,4
+2025-04-14,C0189,South,Books,Bank transfer,10.41,1,0,10.41,5,4
+2025-05-12,C0344,North,Sports,Wallet,46.49,3,0,139.47,4,5
+2025-10-05,C0130,West,Sports,Card,20.76,2,10,37.37,6,4
+2025-12-27,C0320,North,Sports,Bank transfer,123.93,5,0,619.65,6,5
+2025-06-19,C0214,South,Garden,Wallet,181.33,3,20,435.19,5,5
+2025-03-23,C0245,West,Sports,Wallet,302.89,4,15,1029.83,4,3
+2025-06-03,C0238,North,Apparel,Wallet,393.31,6,0,2359.86,2,4
+2025-12-23,C0092,South,Books,Bank transfer,235.37,5,0,1176.85,1,4
+2025-11-18,C0249,Central,Electronics,Bank transfer,248.97,2,25,373.45,4,5
+2025-05-31,C0073,North,Electronics,Bank transfer,188.94,4,25,566.82,4,5
+2025-08-30,C0237,Central,Apparel,Wallet,207.32,6,0,1243.92,5,4
+2025-03-21,C0168,Central,Books,Wallet,39.36,2,0,78.72,8,5
+2025-07-08,C0078,West,Apparel,Wallet,46.35,1,20,37.08,7,3
+2025-05-08,C0030,North,Electronics,Card,385.52,2,15,655.38,1,3
+2025-04-22,C0132,West,Apparel,Wallet,273.0,2,10,491.4,5,4
+2025-03-18,C0299,South,Books,Wallet,286.46,1,0,286.46,3,5
+2025-05-11,C0303,North,Sports,Wallet,110.65,3,10,298.76,4,5
+2025-09-29,C0243,West,Books,Bank transfer,121.87,1,20,97.5,5,4
+2025-11-29,C0095,North,Sports,Card,416.52,4,20,1332.86,1,3
+2025-05-15,C0096,South,Apparel,Wallet,215.58,2,0,431.16,4,5
+2025-09-10,C0285,West,Books,Card,25.42,1,20,20.34,6,3
+2025-04-25,C0041,Central,Apparel,Bank transfer,404.38,1,5,384.16,3,3
+2025-07-28,C0035,East,Home,Card,139.61,1,0,139.61,5,5
+2025-08-16,C0097,North,Garden,Cash on delivery,67.65,8,0,541.2,2,5
+2025-09-04,C0297,North,Apparel,Cash on delivery,41.51,3,0,124.53,4,4
+2025-09-07,C0178,North,Home,Card,367.83,1,0,367.83,7,5
+2025-01-12,C0252,North,Electronics,Cash on delivery,293.23,1,20,234.58,2,5
+2025-07-27,C0311,West,Apparel,Card,410.99,2,10,739.78,2,3
+2025-12-26,C0046,East,Books,Cash on delivery,334.92,5,15,1423.41,8,4
+2025-09-16,C0353,Central,Sports,Cash on delivery,126.71,4,15,430.81,5,5
+2025-02-16,C0035,North,Garden,Cash on delivery,87.0,1,0,87.0,4,5
+2025-10-19,C0350,East,Garden,Wallet,215.23,1,10,193.71,3,5
+2025-09-29,C0098,South,Apparel,Cash on delivery,124.68,1,0,124.68,7,3
+2025-02-19,C0293,Central,Garden,Bank transfer,311.92,1,25,233.94,3,4
+2025-07-13,C0195,Central,Apparel,Bank transfer,117.43,3,15,299.45,6,4
+2025-03-09,C0109,North,Electronics,Card,357.4,1,0,357.4,4,5
+2025-07-21,C0044,East,Sports,Cash on delivery,288.94,1,0,288.94,9,5
+2025-06-08,C0291,South,Apparel,Bank transfer,170.91,3,10,461.46,8,2
+2025-05-19,C0120,West,Home,Cash on delivery,152.49,1,0,152.49,7,4
+2025-12-25,C0092,East,Sports,Bank transfer,405.61,3,5,1155.99,3,5
+2025-07-31,C0351,North,Electronics,Wallet,258.27,4,15,878.12,2,5
+2025-12-18,C0229,East,Books,Card,287.42,1,0,287.42,6,4
+2025-05-23,C0109,West,Books,Card,220.26,2,0,440.52,3,4
+2025-04-06,C0243,East,Sports,Cash on delivery,288.71,3,15,736.21,4,5
+2025-10-20,C0037,Central,Garden,Card,99.46,1,25,74.59,6,5
+2025-07-10,C0136,Central,Home,Bank transfer,333.67,1,0,333.67,5,3
+2025-11-09,C0313,Central,Garden,Card,17.4,1,15,14.79,1,4
+2025-08-26,C0092,Unknown,Sports,Cash on delivery,154.76,1,10,139.28,2,5
+2025-07-28,C0311,South,Home,Wallet,211.04,3,0,633.12,95,4
+2025-04-22,C0224,East,Apparel,Wallet,,5,0,1740.0,1,4
+2025-07-23,C0170,West,Apparel,Wallet,223.08,3,0,98765.43,5,3
+2025-10-15,C0032,West,Garden,Card,406.98,8,15,2767.46,4,4

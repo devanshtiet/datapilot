@@ -221,6 +221,16 @@ class ChartSpec(BaseModel):
 # =============================================================================
 
 
+class AgentInsight(BaseModel):
+    """Narrative summary generated from deterministic analysis evidence."""
+
+    summary: str
+    findings: list[str] = Field(default_factory=list)
+    generation_mode: Literal["deterministic", "llm"] = "deterministic"
+    provider: str | None = None
+    notice: str | None = None
+
+
 class HypothesisResult(BaseModel):
     """Placeholder — populated in Mission 2."""
 

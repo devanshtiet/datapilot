@@ -17,12 +17,15 @@ class Settings(BaseSettings):
         env_file=".env",
         env_file_encoding="utf-8",
         case_sensitive=False,
+        env_ignore_empty=True,
         extra="ignore",
     )
 
     # ── LLM providers (Mission 2+) ────────────────────────────────────────────
     groq_api_key: str | None = Field(default=None, description="Groq API key")
     openai_api_key: str | None = Field(default=None, description="OpenAI API key")
+    openai_model: str = Field(default="gpt-4o-mini", description="OpenAI chat model used for narrative insights")
+    groq_model: str = Field(default="llama-3.1-8b-instant", description="Groq chat model used for narrative insights")
 
     llm_provider: Literal["groq", "openai", "auto"] = Field(
         default="auto",
