@@ -7,10 +7,14 @@
 ## Architecture
 
 ```
-Upload → Quality Score → Descriptive Stats → Anomaly Detection (IQR + Z-score + Isolation Forest) → Insights (Mission 2+)
+Upload → LangGraph profiling workflow → Quality, statistics, correlations, and anomaly tools → Evidence-grounded insights
 ```
 
 **Core rule:** the LLM never computes a metric. Every number originates from a deterministic Python/SQL tool call wrapped as a Pydantic `EvidenceObject`.
+
+## Agent Insights
+
+The Streamlit app runs the profiling workflow through LangGraph. It always produces a local evidence-based summary. Optional hosted interpretation is available with `GROQ_API_KEY` or `OPENAI_API_KEY` configured in `.env`; set `LLM_PROVIDER` to `groq`, `openai`, or `auto` and restart Streamlit. Hosted interpretation is off by default and requires checking the opt-in in the sidebar. When enabled, only aggregate quality/statistical results and column names are sent to the selected provider; raw rows and sample values stay local. Model names can be overridden with `GROQ_MODEL` and `OPENAI_MODEL`.
 
 ---
 
@@ -115,7 +119,7 @@ datapilot/
 ## Milestones
 
 - [x] **Mission 1** — Ingestion, quality scoring, stats, three anomaly detectors, Streamlit demo
-- [ ] **Mission 2** — LangGraph orchestration, hypothesis testing, root-cause analysis, evidence traceability
+- [ ] **Mission 2 (in progress)** — LangGraph profiling workflow and optional LLM interpretation are implemented; hypothesis testing and deeper root-cause analysis remain planned
 - [ ] **Mission 3** — NL querying, SQL validation, security guardrails, audit logging
 - [ ] **Mission 4** — Human-in-the-loop feedback, benchmark suite
 - [ ] **Mission 5** — Voice interface (Whisper + TTS)
