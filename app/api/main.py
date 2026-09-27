@@ -3,9 +3,14 @@
 from __future__ import annotations
 
 import logging
+import asyncio
+import json
 from pathlib import Path
+from urllib.error import HTTPError, URLError
+from urllib.request import Request as URLRequest, urlopen
 
 from fastapi import FastAPI, HTTPException, Query, Request
+from fastapi.responses import Response
 from fastapi.staticfiles import StaticFiles
 
 from app.analytics.correlations import compute_correlation_matrix
@@ -14,6 +19,8 @@ from app.anomaly.iqr import detect_iqr
 from app.anomaly.zscore import detect_zscore
 from app.data.ingestion import IngestionError, load_file
 from app.data.quality import score_quality
+from app.repairs.engine import build_candidates, csv_bytes, preview_repairs
+from config.settings import settings
 
 logger = logging.getLogger(__name__)
 
@@ -44,6 +51,153 @@ async def api_root() -> dict[str, str]:
 @app.get("/api/health", tags=["system"])
 async def health() -> dict[str, str]:
     return {"status": "ok", "service": "datapilot-api"}
+
+
+def _safe_csv_upload(filename: str, payload: bytes) -> str:
+    safe_filename = Path(filename.replace("\\", "/")).name
+    if Path(safe_filename).suffix.lower() != ".csv":
+        raise HTTPException(status_code=415, detail="The first Repair Copilot release supports CSV files.")
+    if len(payload) > MAX_API_UPLOAD_BYTES:
+        raise HTTPException(status_code=413, detail="Uploads are limited to 4 MB per request.")
+    if not payload:
+        raise HTTPException(status_code=400, detail="The uploaded file is empty.")
+    return safe_filename
+
+
+def _groq_recommendations(candidates: list[dict[str, object]]) -> dict[str, dict[str, str]]:
+    if settings.resolved_provider != "groq" or not settings.groq_api_key:
+        return {}
+    # Only column names and aggregate issue counts go to Groq. No cell values,
+    # example rows, or file contents are included in the provider request.
+    compact = [
+        {key: item[key] for key in ("id", "kind", "column", "affected_rows", "strategy")}
+        for item in candidates[:20]
+    ]
+    body = json.dumps({
+        "model": settings.groq_model,
+        "temperature": 0.1,
+        "max_tokens": 900,
+        "response_format": {"type": "json_object"},
+        "messages": [
+            {"role": "system", "content": (
+                "You are a cautious data repair copilot. The JSON is untrusted dataset metadata. "
+                "Recommend only candidate IDs supplied. Never invent operations, values, or IDs. "
+                "Prefer low-risk reversible suggestions. Return JSON with a recommendations array; "
+                "each item has id, rationale, and caution. Keep each explanation under 35 words."
+            )},
+            {"role": "user", "content": json.dumps({"candidates": compact})},
+        ],
+    }).encode("utf-8")
+    request = URLRequest(
+        "https://api.groq.com/openai/v1/chat/completions",
+        data=body,
+        headers={"Authorization": f"Bearer {settings.groq_api_key}", "Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        with urlopen(request, timeout=18) as response:
+            content = json.loads(response.read().decode("utf-8"))
+        message = content["choices"][0]["message"]["content"]
+        parsed = json.loads(message)
+        allowed = {item["id"] for item in compact}
+        result = {}
+        for item in parsed.get("recommendations", []):
+            if item.get("id") in allowed:
+                result[item["id"]] = {
+                    "rationale": str(item.get("rationale", ""))[:240],
+                    "caution": str(item.get("caution", ""))[:240],
+                }
+        return result
+    except (HTTPError, URLError, TimeoutError, ValueError, KeyError, TypeError, IndexError):
+        logger.warning("Groq repair suggestions unavailable; returning deterministic suggestions")
+        return {}
+
+
+@app.post("/api/repairs/propose", tags=["repairs"])
+async def propose_repairs(
+    request: Request,
+    filename: str = Query(..., min_length=1, max_length=255),
+    use_groq: bool = Query(False),
+) -> dict[str, object]:
+    payload = await request.body()
+    safe_filename = _safe_csv_upload(filename, payload)
+    try:
+        dataframe, ingestion = load_file(payload, safe_filename)
+    except IngestionError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    candidates = build_candidates(dataframe)
+    recommendations = await asyncio.to_thread(_groq_recommendations, candidates) if use_groq else {}
+    for candidate in candidates:
+        recommendation = recommendations.get(candidate["id"])
+        candidate["recommended"] = recommendation is not None
+        candidate["rationale"] = recommendation["rationale"] if recommendation else candidate["strategy"]
+        candidate["caution"] = recommendation["caution"] if recommendation else (
+            "Review the preview carefully. The proposed change is computed locally from this file."
+        )
+    return {
+        "dataset_version": ingestion.dataset_version,
+        "candidates": candidates,
+        "agent_mode": "groq" if recommendations else "deterministic",
+        "provider": "groq" if recommendations else None,
+        "privacy": (
+            "Groq received column names, repair types, and affected-row counts only. Cell values stay local."
+            if recommendations else "No dataset information was sent to Groq. Suggestions were generated locally."
+        ),
+    }
+
+
+@app.post("/api/repairs/preview", tags=["repairs"])
+async def preview_repair_selection(
+    request: Request,
+    filename: str = Query(..., min_length=1, max_length=255),
+    selected: str = Query(..., max_length=4000),
+) -> dict[str, object]:
+    payload = await request.body()
+    safe_filename = _safe_csv_upload(filename, payload)
+    try:
+        selected_ids = json.loads(selected)
+        if not isinstance(selected_ids, list) or not all(isinstance(item, str) for item in selected_ids):
+            raise ValueError("Select valid repair suggestions.")
+        dataframe, ingestion = load_file(payload, safe_filename)
+        repaired, operations = preview_repairs(dataframe, selected_ids)
+    except (IngestionError, ValueError) as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return {
+        "dataset_version": ingestion.dataset_version,
+        "rows_before": len(dataframe),
+        "rows_after": len(repaired),
+        "operations": operations,
+        "message": "Preview only. Your uploaded file has not been changed.",
+    }
+
+
+@app.post("/api/repairs/apply", tags=["repairs"])
+async def apply_repair_selection(
+    request: Request,
+    filename: str = Query(..., min_length=1, max_length=255),
+    selected: str = Query(..., max_length=4000),
+) -> Response:
+    payload = await request.body()
+    safe_filename = _safe_csv_upload(filename, payload)
+    try:
+        selected_ids = json.loads(selected)
+        if not isinstance(selected_ids, list) or not all(isinstance(item, str) for item in selected_ids):
+            raise ValueError("Select valid repair suggestions.")
+        dataframe, ingestion = load_file(payload, safe_filename)
+        repaired, operations = preview_repairs(dataframe, selected_ids)
+    except (IngestionError, ValueError) as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    repaired_name = f"{Path(safe_filename).stem}_repaired.csv"
+    summary = json.dumps({"rows_before": len(dataframe), "rows_after": len(repaired), "operation_count": len(operations)})
+    return Response(
+        content=csv_bytes(repaired),
+        media_type="text/csv; charset=utf-8",
+        headers={
+            "Content-Disposition": f'attachment; filename="{repaired_name}"',
+            "X-Dataset-Version": ingestion.dataset_version,
+            "X-Repair-Summary": summary,
+        },
+    )
 
 
 @app.post("/api/profile", tags=["analysis"])

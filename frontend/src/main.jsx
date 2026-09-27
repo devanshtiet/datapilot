@@ -8,8 +8,24 @@ const sections = [
   ["statistics", "Statistics", "03"],
   ["anomalies", "Anomalies", "04"],
   ["insight", "Agent notes", "05"],
-  ["audit", "Evidence ledger", "06"],
+  ["repairs", "Repair copilot", "06"],
+  ["audit", "Evidence ledger", "07"],
 ];
+
+async function readApiResponse(response) {
+  const text = await response.text();
+  let body = {};
+  if (text) {
+    try { body = JSON.parse(text); }
+    catch {
+      const preview = text.replace(/\s+/g, " ").slice(0, 180);
+      throw new Error(`The analysis service returned an unreadable response (HTTP ${response.status}). ${preview || "The server returned an empty response."}`);
+    }
+  }
+  if (!response.ok) throw new Error(body.detail || `The analysis service returned HTTP ${response.status}.`);
+  if (!text) throw new Error("The analysis service returned an empty response.");
+  return body;
+}
 
 const pretty = (value) => {
   if (value === null || value === undefined || value === "") return "—";
@@ -20,6 +36,14 @@ const pretty = (value) => {
 function App() {
   const [section, setSection] = useState("overview");
   const [report, setReport] = useState(null);
+  const [sourceFile, setSourceFile] = useState(null);
+  const [repairCandidates, setRepairCandidates] = useState(null);
+  const [repairPreview, setRepairPreview] = useState(null);
+  const [repairError, setRepairError] = useState("");
+  const [repairBusy, setRepairBusy] = useState(false);
+  const [repairDownload, setRepairDownload] = useState("");
+  const [useGroq, setUseGroq] = useState(false);
+  const [selectedRepairs, setSelectedRepairs] = useState([]);
   const [filename, setFilename] = useState("");
   const [busy, setBusy] = useState(false);
   const [dragging, setDragging] = useState(false);
@@ -43,6 +67,11 @@ function App() {
 
     setBusy(true);
     setFilename(file.name);
+    setSourceFile(file);
+    setRepairCandidates(null);
+    setRepairPreview(null);
+    setRepairDownload("");
+    setSelectedRepairs([]);
     try {
       const query = new URLSearchParams({ filename: file.name, zscore_threshold: String(zscore), iqr_multiplier: String(iqr) });
       const response = await fetch(`/api/profile?${query}`, {
@@ -50,16 +79,59 @@ function App() {
         headers: { "Content-Type": "application/octet-stream" },
         body: file,
       });
-      const body = await response.json();
-      if (!response.ok) throw new Error(body.detail || `Request failed (${response.status}).`);
+      const body = await readApiResponse(response);
       setReport(body);
       setSection("overview");
       setSelectedStat(0);
     } catch (exception) {
-      setError(exception.message || "The dataset could not be analyzed. Try again.");
+      const message = exception.message || "The dataset could not be analyzed. Try again.";
+      setError(/fetch|network/i.test(message) ? "The analysis API is not responding. Start the DataPilot API on port 8000, then retry." : message);
     } finally {
       setBusy(false);
       if (inputRef.current) inputRef.current.value = "";
+    }
+  }
+
+  async function requestRepairs(stage, ids = selectedRepairs) {
+    if (!sourceFile) return;
+    setRepairBusy(true);
+    setRepairError("");
+    try {
+      const query = new URLSearchParams({ filename: sourceFile.name });
+      let endpoint = "/api/repairs/propose";
+      if (stage === "propose") query.set("use_groq", String(useGroq));
+      if (stage === "preview") { endpoint = "/api/repairs/preview"; query.set("selected", JSON.stringify(ids)); }
+      if (stage === "apply") { endpoint = "/api/repairs/apply"; query.set("selected", JSON.stringify(ids)); }
+      const response = await fetch(`${endpoint}?${query}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/octet-stream" },
+        body: sourceFile,
+      });
+      if (stage === "apply") {
+        if (!response.ok) await readApiResponse(response);
+        const blobUrl = URL.createObjectURL(await response.blob());
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        link.download = `${sourceFile.name.replace(/\.csv$/i, "")}_repaired.csv`;
+        link.click();
+        window.setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+        setRepairDownload(link.download);
+      } else {
+        const body = await readApiResponse(response);
+        if (stage === "propose") {
+          setRepairCandidates(body);
+          setSelectedRepairs([]);
+          setRepairPreview(null);
+          setRepairDownload("");
+        } else {
+          setRepairPreview(body);
+          setRepairDownload("");
+        }
+      }
+    } catch (exception) {
+      setRepairError(exception.message || "The repair request could not be completed.");
+    } finally {
+      setRepairBusy(false);
     }
   }
 
@@ -102,7 +174,7 @@ function App() {
     <div className="app-shell">
       <aside className="rail">
         <a className="brand" href="#top" onClick={() => setSection("overview")} aria-label="DataPilot home">
-          <span className="brand-mark"><span /></span>
+          <img className="brand-mark-image" src="/datapilot-mark.svg" alt="" />
           <span className="brand-name">data<span>pilot</span><small>DATA OBSERVATORY</small></span>
         </a>
         <div className="rail-rule" />
@@ -158,6 +230,7 @@ function App() {
             {section === "statistics" && <Statistics stats={stats} correlations={correlations} selected={selectedStat} setSelected={setSelectedStat} evidence={selectedStatEvidence} />}
             {section === "anomalies" && <Anomalies anomalies={anomalies} totalFlagged={totalFlagged} />}
             {section === "insight" && <Insight insight={report.insight} />}
+            {section === "repairs" && <RepairCopilot file={sourceFile} candidates={repairCandidates} preview={repairPreview} error={repairError} busy={repairBusy} download={repairDownload} useGroq={useGroq} setUseGroq={setUseGroq} selected={selectedRepairs} setSelected={setSelectedRepairs} onRequest={requestRepairs} />}
             {section === "audit" && <Audit report={report} onDownload={downloadAudit} />}
           </>
         )}
@@ -228,6 +301,49 @@ function Insight({ insight }) {
     <section className="insight-hero"><span className="panel-kicker">EVIDENCE-GROUNDED SUMMARY</span><h2>{insight.summary}</h2><p>{insight.notice}</p></section>
     <section className="panel"><PanelHead kicker="OBSERVATIONS" title="What the profile shows" meta="RULE-GENERATED" /><div className="finding-list">{(insight.findings ?? []).map((finding, index) => <div className="finding" key={finding}><span>0{index + 1}</span><p>{finding}</p></div>)}</div></section>
     <div className="notice-strip"><span className="notice-rule" />Every statement here comes from measured quality metrics. Numeric results stay deterministic; no rows are sent to an LLM.</div>
+  </div>;
+}
+
+function RepairCopilot({ file, candidates, preview, error, busy, download, useGroq, setUseGroq, selected, setSelected, onRequest }) {
+  const isCsv = file?.name?.toLowerCase().endsWith(".csv");
+  const toggle = (id) => {
+    setSelected((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
+  };
+  return <div className="content-stack animate-in repair-copilot">
+    <section className="repair-intro">
+      <div className="repair-orbit" aria-hidden="true"><span>✳</span></div>
+      <div><span className="panel-kicker">HUMAN-APPROVED DATA CARE</span><h2>Your data, repaired with you in control.</h2><p>The copilot looks for clear, explainable fixes. Review every affected field, preview the exact impact, then approve a separate corrected download.</p></div>
+      <div className="repair-flow"><span>01 <b>Suggest</b></span><i>→</i><span>02 <b>Preview</b></span><i>→</i><span>03 <b>Approve</b></span></div>
+    </section>
+    {!isCsv ? <section className="panel"><EmptyState title="CSV repair is ready first" body="Analysis supports CSV, XLSX, and XLS. The first repair workflow supports CSV so workbook sheets, formulas, and formatting are never silently flattened." /></section> : <>
+      <section className="panel repair-controls">
+        <div><span className="panel-kicker">OPTIONAL AI EXPLANATIONS</span><h3>Choose how suggestions are generated</h3><p>Deterministic checks find the candidate repairs. When enabled, Groq only ranks and explains them; it cannot create or apply edits.</p></div>
+        <label className="groq-consent"><input type="checkbox" checked={useGroq} onChange={(event) => setUseGroq(event.target.checked)} /><span><strong>Use Groq for explanations</strong><small>Column names and issue counts only. Cell values and rows stay on this app.</small></span></label>
+        <button className="button button-dark" onClick={() => onRequest("propose")} disabled={busy}>{busy ? <><span className="spinner" /> Checking…</> : candidates ? "Refresh suggestions" : "Find repair suggestions"}</button>
+      </section>
+      {error && <p className="error-message" role="alert">{error}</p>}
+      {candidates && <>
+        <section className="panel"><div className="panel-head"><div><span className="panel-kicker">{candidates.agent_mode === "groq" ? "GROQ-ASSISTED · SAFE CANDIDATES" : "LOCAL CHECKS · NO AI DATA SHARING"}</span><h2>Review suggested fixes</h2></div><span className="panel-meta">{candidates.candidates.length} CANDIDATES</span></div>
+          <p className="repair-privacy">{candidates.privacy}</p>
+          {!candidates.candidates.length ? <EmptyState title="No clear repairs found" body="The current checks found no whitespace, missing-value, or exact-duplicate issues to propose." /> : <div className="repair-list">{candidates.candidates.map((candidate) => <label className={`repair-option ${selected.includes(candidate.id) ? "selected" : ""}`} key={candidate.id}>
+            <input type="checkbox" checked={selected.includes(candidate.id)} onChange={() => toggle(candidate.id)} />
+            <span className="repair-option-content"><span className="repair-option-title"><strong>{candidate.kind === "trim_text" ? "Trim surrounding whitespace" : candidate.kind === "fill_missing" ? "Fill missing values" : "Remove exact duplicate rows"}</strong><span className="repair-badges">{candidate.recommended && <em className="copilot-pick">COPILOT PICK</em>}<em>{pretty(candidate.affected_rows)} {candidate.kind === "drop_duplicates" ? "rows removed" : "cells changed"}</em></span></span>
+              {candidate.column && <span className="repair-column">{candidate.column}</span>}
+              <span className="repair-rationale">{candidate.rationale}</span>
+              <span className="repair-caution">{candidate.caution}</span>
+              {!!candidate.examples?.length && <span className="repair-examples">{candidate.examples.map((example, index) => <span key={index}><code>{example.before ?? "(blank)"}</code><b>→</b><code>{example.after}</code></span>)}</span>}
+            </span>
+          </label>)}</div>}
+        </section>
+        {!!candidates.candidates.length && <div className="repair-actions"><span>{selected.length} selected · Nothing changes until you approve a preview.</span><button className="button button-dark" onClick={() => onRequest("preview")} disabled={busy || !selected.length}>{busy ? "Building preview…" : "Preview selected fixes"}<span aria-hidden="true"> →</span></button></div>}
+      </>}
+      {preview && <section className="panel repair-preview"><div className="panel-head"><div><span className="panel-kicker">PREVIEW ONLY · ORIGINAL FILE UNCHANGED</span><h2>Here’s exactly what would change</h2></div><span className="row-impact">{pretty(preview.rows_before)} <i>→</i> {pretty(preview.rows_after)} <small>ROWS</small></span></div>
+        <div className="preview-operations">{preview.operations.map((operation) => <article key={operation.id}><span className="preview-check">✓</span><div><strong>{operation.kind === "trim_text" ? "Whitespace cleanup" : operation.kind === "fill_missing" ? "Missing values" : "Exact duplicates"}{operation.column ? ` · ${operation.column}` : ""}</strong><p>{operation.strategy}</p><small>{pretty(operation.affected_rows)} affected {operation.kind === "drop_duplicates" ? "rows" : "cells"}{operation.kind === "fill_missing" ? ` · replacement: ${String(operation.fill_value)}` : ""}</small></div></article>)}</div>
+        <div className="approval-note"><span>↳</span><p>Approving downloads a new <strong>_repaired.csv</strong> copy. Your uploaded original stays unchanged, so you can discard the repaired copy to undo.</p></div>
+        <button className="button button-dark approve-repairs" onClick={() => onRequest("apply")} disabled={busy}>{busy ? "Preparing repaired copy…" : "Approve & download repaired copy"}</button>
+        {download && <p className="repair-success" role="status">Your repaired copy was downloaded as <strong>{download}</strong>. The original is unchanged.</p>}
+      </section>}
+    </>}
   </div>;
 }
 
