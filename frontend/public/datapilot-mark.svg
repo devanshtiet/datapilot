@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">DataPilot</title>
+  <defs>
+    <linearGradient id="blue" x1="9" y1="8" x2="55" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0052ff"/>
+      <stop offset="1" stop-color="#4d7cff"/>
+    </linearGradient>
+  </defs>
+  <rect x="3" y="3" width="58" height="58" rx="19" fill="url(#blue)"/>
+  <path d="M20 19v26h10.2c7.2 0 12.3-5.2 12.3-13s-5.1-13-12.3-13H20Z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.2"/>
+  <path d="m23 38 6-6 5 3 7-9" fill="none" stroke="#bcd0ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6"/>
+  <circle cx="41" cy="26" r="2.3" fill="#fff"/>
+</svg>
