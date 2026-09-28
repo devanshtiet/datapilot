@@ -2,6 +2,18 @@
 
 DataPilot profiles CSV and Excel datasets with a React dashboard and a FastAPI analysis service. Every metric is computed deterministically and returned with its evidence; uploaded rows are not sent to an AI provider.
 
+<div align="center">
+
+<a href="https://devanshtiet.github.io/datapilot/">
+  <img src="docs/assets/datapilot-intro-poster.png" alt="DataPilot – click to watch intro" width="720" />
+</a>
+
+<br /><br />
+
+<sub>▶️ <a href="https://devanshtiet.github.io/datapilot/">Watch the full intro with music</a> · <a href="docs/assets/datapilot-intro.mp4">Download MP4</a></sub>
+
+</div>
+
 ## Stack
 
 - **Frontend:** React 19, Vite
