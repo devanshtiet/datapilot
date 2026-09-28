@@ -4,13 +4,13 @@ DataPilot profiles CSV and Excel datasets with a React dashboard and a FastAPI a
 
 <div align="center">
 
-<a href="https://devanshtiet.github.io/datapilot/">
-  <img src="docs/assets/datapilot-intro-poster.png" alt="DataPilot – click to watch intro" width="720" />
-</a>
+<video src="https://github.com/devanshtiet/datapilot/raw/main/docs/assets/datapilot-intro.mp4" controls loop muted width="720" poster="https://raw.githubusercontent.com/devanshtiet/datapilot/main/docs/assets/datapilot-intro-poster.png">
+  Your browser does not support the video tag.
+</video>
 
-<br /><br />
+<br />
 
-<sub>▶️ <a href="https://devanshtiet.github.io/datapilot/">Watch the full intro with music</a> · <a href="docs/assets/datapilot-intro.mp4">Download MP4</a></sub>
+<sub>🔊 <a href="https://devanshtiet.github.io/datapilot/">Watch with music on GitHub Pages</a> · <a href="docs/assets/datapilot-intro.mp4">Download MP4</a></sub>
 
 </div>
 
