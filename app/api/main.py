@@ -5,6 +5,9 @@ from __future__ import annotations
 import logging
 import asyncio
 import json
+import re
+import numpy as np
+import pandas as pd
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.request import Request as URLRequest, urlopen
@@ -51,6 +54,63 @@ async def api_root() -> dict[str, str]:
 @app.get("/api/health", tags=["system"])
 async def health() -> dict[str, str]:
     return {"status": "ok", "service": "datapilot-api"}
+
+
+def _visual_profile(dataframe: pd.DataFrame) -> dict[str, object]:
+    """Compact chart-ready summaries; raw dataset rows are not returned."""
+    distributions = {}
+    for column in dataframe.select_dtypes(include="number").columns[:40]:
+        values = pd.to_numeric(dataframe[column], errors="coerce").dropna()
+        if values.empty:
+            continue
+        counts, edges = np.histogram(values.to_numpy(), bins=min(24, max(6, int(np.sqrt(len(values))))))
+        distributions[str(column)] = {
+            "counts": counts.astype(int).tolist(),
+            "edges": [round(float(v), 6) for v in edges],
+            "box": [round(float(values.quantile(q)), 6) for q in (0, .25, .5, .75, 1)],
+            "values": [round(float(v), 6) for v in values.iloc[::max(1, len(values)//250)].head(250)],
+        }
+    categories = {}
+    categorical_columns = list(dataframe.select_dtypes(exclude="number").columns)
+    categorical_columns += [c for c in dataframe.select_dtypes(include="number").columns if dataframe[c].nunique(dropna=True) <= 20]
+    for column in categorical_columns[:40]:
+        if re.search(r"(^|[_\s-])(date|time|timestamp|day|month|year|created|updated)([_\s-]|$)", str(column).lower()):
+            continue
+        counts = dataframe[column].fillna("(missing)").astype(str).value_counts().head(12)
+        categories[str(column)] = [{"label": str(k)[:80], "count": int(v)} for k, v in counts.items()]
+    dates = {}
+    numeric_cols = dataframe.select_dtypes(include="number").columns.tolist()[:12]
+    scatter = []
+    for i, col_a in enumerate(numeric_cols):
+        for col_b in numeric_cols[i + 1:]:
+            if len(scatter) >= 12:
+                break
+            pair = dataframe[[col_a, col_b]].dropna()
+            if len(pair) > 250:
+                pair = pair.iloc[::max(1, len(pair)//250)].head(250)
+            scatter.append({"x": str(col_a), "y": str(col_b), "points": pair.astype(float).values.tolist()})
+    for column in dataframe.columns:
+        name_hints = bool(re.search(r"(^|[_\s-])(date|time|timestamp|day|month|year|created|updated)([_\s-]|$)", str(column).lower()))
+        if not name_hints and not (pd.api.types.is_object_dtype(dataframe[column]) or pd.api.types.is_string_dtype(dataframe[column])):
+            continue
+        parsed = pd.to_datetime(dataframe[column], errors="coerce")
+        valid = parsed.notna()
+        if valid.sum() < 2 or valid.mean() < 0.7:
+            continue
+        metric_cols = dataframe.select_dtypes(include="number").columns.tolist()[:12]
+        grouping = parsed[valid].dt.to_period("M").astype(str)
+        series = dataframe.loc[valid, metric_cols].groupby(grouping).mean(numeric_only=True) if metric_cols else grouping.value_counts().sort_index()
+        dates[str(column)] = {
+            "count": [{"label": str(k), "value": int(v)} for k, v in series.items()] if not metric_cols else [],
+            "metrics": {str(metric): [{"label": str(k), "value": round(float(v), 6)} for k, v in series[metric].items()] for metric in metric_cols},
+        }
+    missing = dataframe.isna()
+    step = max(1, len(dataframe)//50)
+    missingness = {
+        "columns": [str(c) for c in dataframe.columns[:80]],
+        "rows": [{"index": int(i), "missing": [bool(v) for v in missing.iloc[i, :80].tolist()]} for i in range(0, len(dataframe), step)][:50],
+    }
+    return {"distributions": distributions, "categories": categories, "dates": dates, "scatter": scatter, "missingness": missingness}
 
 
 def _safe_csv_upload(filename: str, payload: bytes) -> str:
@@ -249,6 +309,16 @@ async def profile_dataset(
     for column_profile in quality.get("column_profiles", []):
         column_profile.pop("sample_values", None)
 
+    anomaly_row_ids = sorted({hit.row_index for item in anomalies for hit in item.results})[:100]
+    flagged_columns = {hit.column for item in anomalies for hit in item.results}
+    context_columns = list(dict.fromkeys([*map(str, dataframe.columns[:40]), *flagged_columns]))[:80]
+    row_context = {
+        str(index): {column: str(dataframe.iloc[index][column])[:160] for column in context_columns}
+        for index in anomaly_row_ids
+    }
+    overlap_keys = set.intersection(*[
+        {(hit.row_index, hit.column) for hit in item.results} for item in anomalies
+    ]) if len(anomalies) > 1 else set()
     return {
         "dataset": ingestion.model_dump(mode="json"),
         "quality_report": quality,
@@ -259,9 +329,17 @@ async def profile_dataset(
                 "method": item.method,
                 "columns_analysed": item.columns_analysed,
                 "n_flagged": item.n_flagged,
+                "results": [
+                    {"column": hit.column, "row_index": hit.row_index, "value": hit.value, "score": hit.score}
+                    for hit in item.results[:500]
+                ],
             }
             for item in anomalies
         ],
+        "visual_profile": _visual_profile(dataframe),
+        "row_context": row_context,
+        "unique_flagged_count": len({(hit.row_index, hit.column) for item in anomalies for hit in item.results}),
+        "overlapping_flag_count": len(overlap_keys),
         "insight": {
             "summary": (
                 f"The dataset scored {quality_report.composite_score:.1f}/100 across "

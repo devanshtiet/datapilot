@@ -35,6 +35,18 @@ def build_candidates(df: pd.DataFrame) -> list[dict[str, Any]]:
                     "strategy": "Remove leading and trailing whitespace; keep letter case and internal spaces.",
                     "examples": _examples(df, column, changed, lambda value: value.strip()),
                 })
+            normalized = text.str.replace(r"\s+", " ", regex=True)
+            changed_internal = text.notna() & text.ne(normalized)
+            count = int(changed_internal.sum())
+            if count:
+                candidates.append({
+                    "id": _candidate_id("normalize_whitespace", str(column)),
+                    "kind": "normalize_whitespace",
+                    "column": str(column),
+                    "affected_rows": count,
+                    "strategy": "Replace repeated spaces, tabs, and line breaks inside text with a single space.",
+                    "examples": _examples(df, column, changed_internal, lambda value: " ".join(value.split())),
+                })
 
         missing = series.isna() | (series.astype("string").str.strip() == "")
         count = int(missing.sum())
@@ -105,6 +117,10 @@ def preview_repairs(df: pd.DataFrame, selected_ids: list[str]) -> tuple[pd.DataF
             column = candidate["column"]
             mask = repaired[column].notna()
             repaired.loc[mask, column] = repaired.loc[mask, column].astype("string").str.strip()
+        elif candidate["kind"] == "normalize_whitespace":
+            column = candidate["column"]
+            mask = repaired[column].notna()
+            repaired.loc[mask, column] = repaired.loc[mask, column].astype("string").str.replace(r"\s+", " ", regex=True)
         elif candidate["kind"] == "fill_missing":
             column = candidate["column"]
             mask = repaired[column].isna() | (repaired[column].astype("string").str.strip() == "")
