@@ -6,14 +6,19 @@
   "scripts": {
     "dev": "vite --config frontend/vite.config.js",
     "build": "vite build --config frontend/vite.config.js",
-    "preview": "vite preview --config frontend/vite.config.js"
+    "preview": "vite preview --config frontend/vite.config.js",
+    "video:studio": "remotion studio video/index.jsx --port=3001",
+    "video:render": "remotion render video/index.jsx DataPilotIntro docs/assets/datapilot-intro.mp4 --codec=h264",
+    "video:poster": "remotion still video/index.jsx DataPilotIntro docs/assets/datapilot-intro-poster.png --frame=210"
   },
   "dependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "@remotion/cli": "^4.0.529",
     "@vitejs/plugin-react": "^5.0.4",
+    "remotion": "^4.0.529",
     "vite": "^7.1.7"
   }
 }

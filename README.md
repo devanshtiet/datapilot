@@ -32,6 +32,18 @@ pnpm dev
 
 Open `http://localhost:3000`. The Vite development server proxies `/api` requests to FastAPI on port 8000. You can load the included retail-orders sample or upload your own CSV, XLS, or XLSX file.
 
+## DataPilot intro
+
+Watch the [8-second DataPilot intro](https://devanshtiet.github.io/datapilot/) or download [the MP4](docs/assets/datapilot-intro.mp4). The GitHub Pages site includes the original upbeat music cue and a short overview of the product.
+
+To edit the Remotion composition locally:
+
+```bash
+pnpm video:studio
+```
+
+The preview opens at `http://localhost:3001`. Render the MP4 and page poster with `pnpm video:render` and `pnpm video:poster`.
+
 The **Repair Copilot** currently offers previewable CSV fixes for surrounding whitespace, missing values, and exact duplicate rows. Suggestions are computed locally. If the user opts in to Groq explanations, only column names and issue counts are sent; the model cannot invent or apply operations. Preview is computed by deterministic code, and approval downloads a separate repaired copy while leaving the original upload unchanged. XLS/XLSX repair is deliberately not offered yet to avoid flattening workbook sheets, formulas, or formatting.
 
 ## Production build
